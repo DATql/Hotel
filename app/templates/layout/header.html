@@ -1,0 +1,23 @@
+<section class="header">
+
+   <div class="flex">
+      <a href="{{ url_for('home') }}" class="logo">
+         <img src="{{url_for('static', filename='images/logo_1650360911.svg')}}" alt="{{ des }}" title="{{ des }}">
+      </a>
+      <div class="group-btn">
+         <a href="#reservation" class="btn">Đặt Phòng</a>
+         <a href="#login" class="btn login">Đăng Nhập</a>
+         <a href="#signup" class="btn signup">Đăng Kí</a>
+      </div>
+      <div id="menu-btn" class="fas fa-bars"></div>
+   </div>
+
+   <nav class="navbar">
+      <a href="{{ url_for('home') }}">trang chủ</a>
+      <a href="#about">về chúng tôi</a>
+      <a href="#services">dịch vụ</a>
+      <a href="#contact">Liên Hệ</a>
+      <a href="#reviews">reviews</a>
+   </nav>
+
+</section>
