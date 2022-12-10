@@ -1,0 +1,173 @@
+{% extends 'layout/base.html' %}
+{% block title %}{{title}}{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block btn %}
+<div class="group-btn">
+    <a href="{{ url_for('login') }}" class="btn login">Đăng Nhập</a>
+    <a href="#signup" class="btn signup">Đăng Kí</a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Availability -->
+
+<section class="availability" id="availability">
+
+    <form action="" method="post">
+        <div class="flex">
+            <div class="box">
+                <p>Ngày Nhận Phòng</p>
+                <input type="datetime-local" class="input" name="check_in" required>
+            </div>
+            <div class="box">
+                <p>Ngày Trả Phòng</p>
+                <input type="datetime-local" class="input" name="check_out" required>
+            </div>
+            <div class="box">
+                <p>Số Phòng</p>
+                <input type="number" min="1" max="10" step="1" name="room" class="input-p" id="room"
+                       placeholder="Phòng">
+            </div>
+            <div class="box">
+                <p>Mã Khuyến Mãi</p>
+                <input type="text" name="room" id="voucher" class="input-p" placeholder="Nhập mã khuyến mãi">
+            </div>
+            <div class="box">
+                <p>Số Lượng Khách Hàng</p>
+                <input type="number" min="1" max="10" step="1" name="room" class="input" placeholder="Khách hàng">
+            </div>
+        </div>
+        <input type="submit" value="Tìm Kiếm" name="check" class="btn">
+    </form>
+
+</section>
+
+<!-- List Room -->
+
+<section class="booking" id="">
+
+    <div class="block-list">
+        {% if roomcategories %}
+        {% for r in roomcategories %}
+        <div class="tab-content">
+
+            <div class="list-room">
+                <div class="block">
+                    <div class="block-item">
+                        <div class="images">
+                            <img src="{{ url_for('static', filename='images/home-img-1.jpg') }}" alt="">
+                        </div>
+                        <div class="content">
+                            <h3>{{r.loaiphong}}</h3>
+                            <div class="room-price">
+                                <div class="room-min-price">
+                                    <p>Giá Chỉ Từ</p>
+                                    <p>{{r.dongia}} VNĐ <span>/ đêm</span></p>
+                                </div>
+                                <div class="room-book">
+                                    <button class="btn " value="{{r.id}}">Chọn Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-room-hidden">
+                <div class="block">
+                    <div class="item-rate">
+                        <div class="select-type-room">
+                            <select id="inland">
+                                <option value="hide">-- Trong Nước --</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="select-type-customer">
+                            <select id="foreign">
+                                <option value="hide">-- Nước Ngoài --</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="room-price">
+                            <div class="room-min-price">
+                                <p>1,150,000 VNĐ <span>/ đêm</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block">
+                    {%if rooms%}
+                    {% for d in rooms %}
+                    {% if d.LoaiPhong_id ==r.id %}
+                    <section class="room top">
+                        <div>
+                            <div class="content grid">
+                                <div class="box">
+                                    <div class="img">
+                                        <img src="{{ d.hinhanh }}" alt="{{d.tenphong}}">
+                                    </div>
+                                    <div class="text">
+                                        <h3>{{r.loaiphong + " " +d.tenphong}}</h3>
+                                        <h3>Giá Phòng {{r.dongia}}</h3>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:;"
+                                           onclick="addToCart ({{ d.id }}, '{{ d.tenphong }}', {{ r.dongia }},{{r.sokhachtoida}},'{{r.loaiphong}}')"
+                                           class="btn btn-danger">Đặt Phòng</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+        </div>
+        {%endfor%}
+        {%endif%}
+    </div>
+
+
+    <div class="block-info">
+        <div class="block">
+            <h3>Thông tin đặt phòng</h3>
+            {%if 'cart' in session and session['cart']%}
+            {% for c in session['cart'].values()%}
+            <div class="static-info-book">
+                <p>{{c.name}}</p>
+                <p>{{c.price}}</p>
+            </div>
+            {%endfor%}
+            {%endif%}
+            <div class="total-info-book">
+                <div>Giá tạm thời</div>
+
+                <span class="total_amount">{{cart_stats.total_amount}}</span>
+                <div class=""><a href="{{url_for('cart')}} " onblur="">Đặt Phòng</a></div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock content %}

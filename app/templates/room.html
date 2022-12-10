@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+{% if rooms %}
+<form method="post" action="/order"></form>
+<div class="row">
+    {% for p in rooms %}
+    <div class="col-md-3 col-sm-12" style="padding:1rem;">
+        <div class="card">
+            <div class="card-body" >
+                <h4 class="card-title" name="tenphong" >{{ p.name }}</h4>
+                <a href="/order" class="btn btn-primary">Đặt phòng</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-danger">Không có sản phẩm nào!</p>
+{% endif %}
+
+
+{% endblock %}

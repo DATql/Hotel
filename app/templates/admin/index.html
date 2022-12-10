@@ -1,0 +1,20 @@
+{% extends 'admin/base.html'%}
+
+{% block body %}
+{% if current_user.is_authenticated%}
+<h1> {{current_user.name}}</h1>
+{% else%}
+<form method="post" action="{{url_for('admin_login')}}">
+  <div class="mb-3 mt-3">
+    <label for="username" class="form-label">Ten dang nhap:</label>
+    <input type="text" class="form-control" id="username" placeholder="Nhap ten dang nhap" name="username">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Mat khau:</label>
+    <input type="password" class="form-control" id="password" placeholder="nhap password" name="password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endif%}
+{%endblock %}

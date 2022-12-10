@@ -1,0 +1,12 @@
+{% extends 'form/base.html' %}
+{% block title %}{{title}}{% endblock %}
+
+{% if err_msg %}
+<div class="alert alert-danger">
+    {{ err_msg }}
+</div>
+{% endif %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+

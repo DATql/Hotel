@@ -1,5 +1,313 @@
-{% extends 'base.html' %}
-{% block title %}{{title}}{% endblock %}
-{% block head %}
-  {{ super() }}
-{% endblock %}
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<!-- Header -->
+
+<!-- Home -->
+
+<section class="home">
+
+   <div class="swiper home-slider">
+
+      <div class="swiper-wrapper">
+
+         <div class="box swiper-slide">
+            <img alt="" src="{{ url_for('static', filename='images/home-img-1.jpg') }}">
+            <div class="flex">
+               <h3>luxurious rooms</h3>
+               <a class="btn" href="#availability">Tìm Kiếm</a>
+            </div>
+         </div>
+
+         <div class="box swiper-slide">
+            <img alt="" src="{{ url_for('static', filename='images/home-img-2.jpg') }}">
+            <div class="flex">
+               <h3>foods and drinks</h3>
+               <a class="btn" href="#reservation">Đặt Phòng</a>
+            </div>
+         </div>
+
+         <div class="box swiper-slide">
+            <img alt="" src="{{ url_for('static', filename='images/home-img-3.jpg') }}">
+            <div class="flex">
+               <h3>luxurious halls</h3>
+               <a class="btn" href="#contact">Liên Hệ Với Chúng Tôi</a>
+            </div>
+         </div>
+
+      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+
+   </div>
+
+</section>
+
+<!-- Availability -->
+
+<section class="availability" id="availability">
+
+   <form action="/booking" >
+      <div class="flex">
+
+       <form action="#">
+          <div class="box">
+            <p>Chọn loại phòng</p>
+            <select name="loaiphong" >
+             <option value="Phòng đơn">Phòng đơn</option>
+             <option value="Phòng đôi">Phòng đôi</option>
+             <option value="Phòng lớn">Phòng lớn</option>
+            </select>
+          </div>
+   </form>
+   <input class="btn"  type="submit" value="Tìm Kiếm">
+      </div>
+   </form>
+
+</section>
+
+<!-- About -->
+
+<section class="about" id="about">
+
+   <div class="row">
+      <div class="image">
+         <img alt="" src="{{url_for('static', filename='images/about-img-1.jpg')}}">
+      </div>
+      <div class="content">
+         <h3>best staff</h3>
+         <ul>
+            <li>Mrs.Allice</li>
+            <li>Manager</li>
+         </ul>
+         <p>Nhân viên ưu tú xuất sắc nhất các năm qua. Cô ấy rất chăm chỉ, có tinh thần trách nhiệm rất cao trong công việc. Chúng tôi có hy vọng cô sẽ tiếp tục phát huy và làm tấm gương cho tất cả các nhân viên trong công ty.</p>
+         <a class="btn" href="#reservation">Đặt Phòng</a>
+      </div>
+   </div>
+
+   <div class="row revers">
+      <div class="image">
+         <img alt="" src="{{url_for('static', filename='images/about-img-2.jpg')}}">
+      </div>
+      <div class="content">
+         <h3>best foods</h3>
+         <ul>
+            <li>Thời gian phục: 11h - 20h30</li>
+            <li>Đặt món ít nhất trước 20 phút</li>
+         </ul>
+         <p>Menu ở đây đa dạng từ món Việt, món Âu, món Hàn, món Trung, món Nhật, bánh mì, đồ ngọt... phục vụ cho mọi nhu cầu của khách hàng. Nhìn chung, mức giá cho thực đơn mang về tại JW Marriott Hotel Hanoi không quá đắt, bạn vẫn có thể lựa chọn những món ăn có mức giá rất hợp lý như: bánh bao xá xíu (88.000VNĐ), chân gà xốt tàu xì (88.000VNĐ), mỳ vằn thắn cay Quảng Đông (98.000VNĐ), xíu mại thịt heo và nấm (98.000VNĐ)...</p>
+         <a class="btn" href="#contact">Liên Hệ Với Chúng Tôi</a>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="image">
+         <img alt="" src="{{url_for('static', filename='images/about-img-3.jpg')}}">
+      </div>
+      <div class="content">
+         <h3>swimming pool</h3>
+         <ul>
+            <li>Vị trí: Tầng 18</li>
+            <li>Giờ mở cửa: 08:00 - 22:00</li>
+         </ul>
+         <p>Hồ bơi rộng, mát mẻ, có view ngắm thành phố từ trên cao...</p>
+         <a class="btn" href="#availability">Xem Chi Tiết</a>
+      </div>
+   </div>
+
+</section>
+
+<!-- Services -->
+
+<section class="services" id="services">
+
+   <div class="box-container">
+
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-1.png')}}">
+         <h3>food & drinks</h3>
+         <p>Ẩm thực là chiếc gương soi chân thực cho nền văn hóa của mỗi quốc gia.</p>
+      </div>
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-2.png')}}">
+         <h3>outdoor dining</h3>
+         <p>Hiện nay, xu hướng dùng rau trong bữa ăn như salad trộn không qua nấu chín đang là cách ẩm thực phổ biển và khoa học.</p>
+      </div>
+
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-3.png')}}">
+         <h3>beach view</h3>
+         <p>Nằm lạc tại Bãi biển Rehoboth, cách Lối đi bộ lót ván Bãi biển Rehoboth 800 m, Khách sạn Brighton Suites cung cấp Wi-Fi miễn phí, hồ bơi trong nhà, tắm nắng và tầm nhìn ra quang cảnh thành phố.</p>
+      </div>
+
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-4.png')}}">
+         <h3>decorations</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
+      </div>
+
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-5.png')}}">
+         <h3>swimming pool</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
+      </div>
+
+      <div class="box">
+         <img alt="" src="{{url_for('static', filename='images/icon-6.png')}}">
+         <h3>resort beach</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
+      </div>
+
+   </div>
+
+</section>
+
+<!-- Reservation -->
+
+<section class="reservation" id="reservation">
+
+   <form action="" method="post">
+      <h3>Đặt Phòng</h3>
+      <div class="flex">
+         <div class="box">
+            <p>Ngày Nhận Phòng</p>
+            <input class="input" name="check_in" required type="datetime-local">
+         </div>
+         <div class="box">
+            <p>Ngày Trả Phòng</p>
+            <input class="input" name="check_out" required type="datetime-local">
+         </div>
+         <div class="box">
+            <p>Số Phòng</p>
+            <input class="input" id="room" max="10" min="1" name="room" placeholder="Phòng" step="1" type="number">
+         </div>
+         <div class="box">
+            <p>Mã Khuyến Mãi</p>
+            <input class="input" id="voucher" name="room" placeholder="Nhập mã khuyến mãi" type="text">
+         </div>
+         <div class="box">
+            <p>Số Lượng Khách Hàng</p>
+            <input class="input" max="10" min="1" name="room" placeholder="Khách hàng" step="1" type="number">
+         </div>
+      </div>
+      <input class="btn" name="check" type="submit" value="Tìm Kiếm">
+   </form>
+
+</section>
+
+<!-- Gallery -->
+
+<section class="gallery" id="gallery">
+
+   <div class="swiper gallery-slider">
+      <div class="swiper-wrapper">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-1.jpg') }}">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-2.webp') }}">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-3.webp') }}">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-4.webp') }}">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-5.webp') }}">
+         <img alt="" class="swiper-slide" src="{{ url_for('static', filename='images/gallery-img-6.webp') }}">
+      </div>
+      <div class="swiper-pagination"></div>
+   </div>
+
+</section>
+
+<!-- Contact -->
+
+<section class="contact" id="contact">
+
+   <div class="row">
+
+      <form action="" method="post">
+         <h3>Gửi Đánh Giá</h3>
+         <input class="box" maxlength="50" name="name" placeholder="Nhập email" required type="text">
+         <input class="box" maxlength="50" name="email" placeholder="Xác nhập email" required type="email">
+         <input class="box" max="9999999999" maxlength="10" min="0" name="number" placeholder="Nhập SĐT" required type="number">
+         <textarea class="box" cols="30" maxlength="1000" name="msg" placeholder="Nội dung phản hồi" required rows="10"></textarea>
+         <input class="btn" name="send" type="submit" value="Phản Hồi">
+      </form>
+
+      <div class="faq">
+         <h3 class="title">frequently asked questions</h3>
+         <div class="box active">
+            <h3>how to cancel?</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus sunt aspernatur excepturi eos! Quibusdam, sapiente.</p>
+         </div>
+         <div class="box">
+            <h3>is there any vacancy?</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ipsam neque quaerat mollitia ratione? Soluta!</p>
+         </div>
+         <div class="box">
+            <h3>what are payment methods?</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ipsam neque quaerat mollitia ratione? Soluta!</p>
+         </div>
+         <div class="box">
+            <h3>how to claim coupons codes?</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ipsam neque quaerat mollitia ratione? Soluta!</p>
+         </div>
+         <div class="box">
+            <h3>what are the age requirements?</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa ipsam neque quaerat mollitia ratione? Soluta!</p>
+         </div>
+      </div>
+
+   </div>
+
+</section>
+
+<!-- Reviews -->
+
+<section class="reviews" id="reviews">
+
+   <div class="swiper reviews-slider">
+
+      <div class="swiper-wrapper">
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-1.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-2.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-3.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-4.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-5.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+         <div class="swiper-slide box">
+            <img alt="" src="{{ url_for('static', filename='images/pic-6.png') }}">
+            <h3>john deo</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates blanditiis optio dignissimos eaque aliquid explicabo.</p>
+         </div>
+      </div>
+
+      <div class="swiper-pagination"></div>
+   </div>
+
+</section>
+
+<!-- Footer -->
+{% include 'layout/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{%endblock %}

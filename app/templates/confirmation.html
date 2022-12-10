@@ -1,0 +1,61 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+
+{%if 'cart' in session and session['cart']%}
+<table class="table">
+    <tr>
+        <th>Loại Phòng</th>
+        <th>Tên phòng</th>
+        <th> Giá Phòng</th>
+    </tr>
+    {% for c in session['cart'].values()%}
+    <tr>
+         <td>{{c.loaiphong}}</td>
+         <td>{{c.name}}</td>
+         <td>{{c.price}}</td>
+
+    </tr>
+    {%endfor%}
+
+</table>
+
+<form >
+     {% for c in session['cart'].values()%}
+    {%for r in roomcategories if r.loaiphong==c.loaiphong%}
+    <div>{{c.name}}</div>
+    {%for x in range(1,c.sokhachtoida+1)%}
+
+  <div class="row">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Nhập Họ Tên" name="hoten">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Nhập CMND" name="cmnd">
+    </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="Nhập Địa Chỉ" name="diachi">
+    </div>
+
+     <div class="col"> <select class="form-select" name="quocgia">
+  <option>Trong nước</option>
+  <option>Nước ngoài</option>
+
+</select></div>
+
+
+  </div>
+    {%endfor%}
+    {%endfor%}
+    {%endfor%}
+</form>
+<div class="alert alert-info">
+    <h3>Tổng Số Phòng: <span class="cart-counter">{{ stats.total_quantity }}</span></h3>
+    <h3>Tổng Thanh Toán: <span class="cart-amount">{{stats.total_amount}}</span> VNĐ</h3>
+</div>
+
+<input type="btn" class="btn btn-success" value="Thanh Toán">
+{%else%}
+<p> Chua chon phong</p>
+{%endif%}
+
+{%endblock%}

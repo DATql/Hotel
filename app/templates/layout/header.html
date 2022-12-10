@@ -5,9 +5,23 @@
          <img src="{{url_for('static', filename='images/logo_1650360911.svg')}}" alt="{{ des }}" title="{{ des }}">
       </a>
       <div class="group-btn">
-         <a href="#reservation" class="btn">Đặt Phòng</a>
-         <a href="#login" class="btn login">Đăng Nhập</a>
-         <a href="#signup" class="btn signup">Đăng Kí</a>
+
+         {% if current_user.is_authenticated%}
+          {%if current_user.avatar%}
+          <img src="{{current_user.avatar}} "alt="{{current_user.hoten}}"width="50" height="50">
+          {%else%}
+          <img src="{{url_for('static',filename='images/icon1-png')}} " alt="" width="50" height="50">
+          {%endif%}
+            <a href="/booking" class="btn">Đặt Phòng</a>
+
+             <a href="{{url_for('user_logout')}}" class="btn signout">Đăng Xuất</a>
+<h1> {{current_user.hoten}}</h1>
+
+         {%else%}
+          <a href="/login" class="btn">Đặt Phòng</a>
+         <a href="/login" class="btn login">Đăng Nhập</a>
+         <a href="{{url_for('register')}}" class="btn signup">Đăng Kí</a>
+         {%endif%}
       </div>
       <div id="menu-btn" class="fas fa-bars"></div>
    </div>
