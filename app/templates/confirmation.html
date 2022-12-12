@@ -19,24 +19,31 @@
 
 </table>
 
-<form >
+<form method="post" action="/complete" >
+    <label for="ngaynhan">Ngày nhận phòng:</label>
+    <input type="date" id="ngaynhan" name="ngaynhan">
+    <label for="ngaytra">Ngày trả phòng:</label>
+    <input type="date" id="ngaytra" name="ngaytra">
      {% for c in session['cart'].values()%}
     {%for r in roomcategories if r.loaiphong==c.loaiphong%}
     <div>{{c.name}}</div>
     {%for x in range(1,c.sokhachtoida+1)%}
 
   <div class="row">
+      <div class = "col">
+          <label >Khách hàng {{x}}</label>
+      </div>
     <div class="col">
       <input type="text" class="form-control" placeholder="Nhập Họ Tên" name="hoten">
     </div>
     <div class="col">
-      <input type="text" class="form-control" placeholder="Nhập CMND" name="cmnd">
+      <input type="text" class="form-control" placeholder="Nhập CMND" name="cmnd[]">
     </div>
     <div class="col">
-      <input type="text" class="form-control" placeholder="Nhập Địa Chỉ" name="diachi">
+      <input type="text" class="form-control" placeholder="Nhập Địa Chỉ" name="diachi[]">
     </div>
 
-     <div class="col"> <select class="form-select" name="quocgia">
+     <div class="col"> <select class="form-select" name="quocgia[]">
   <option>Trong nước</option>
   <option>Nước ngoài</option>
 
@@ -47,13 +54,14 @@
     {%endfor%}
     {%endfor%}
     {%endfor%}
-</form>
 <div class="alert alert-info">
     <h3>Tổng Số Phòng: <span class="cart-counter">{{ stats.total_quantity }}</span></h3>
     <h3>Tổng Thanh Toán: <span class="cart-amount">{{stats.total_amount}}</span> VNĐ</h3>
 </div>
 
-<input type="btn" class="btn btn-success" value="Thanh Toán">
+<input class="btn"  type="submit" value="Tìm Kiếm">
+    </form>
+
 {%else%}
 <p> Chua chon phong</p>
 {%endif%}

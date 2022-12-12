@@ -2,7 +2,102 @@
 
 {% block body %}
 {% if current_user.is_authenticated%}
-<h1> {{current_user.name}}</h1>
+<h1> {{current_user.hoten}}</h1>
+<div class="row">
+</div>
+<div class="col">
+    <div class="row">
+  <div class="container mt-5 col-md-5 col-xs-12">
+  <table class="table table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th colspan="5" class="text-center">Báo cáo doanh thu</th>
+      </tr>
+    </thead>
+     <thead class="table-dark">
+
+    </thead>
+     <thead class="table-dark">
+      <tr class="text-center" >
+         <th>STT</th>
+        <th>Loại Phòng</th>
+        <th>Doanh Thu</th>
+        <th>Số Lượt Thuê</th>
+        <th>Tỉ Lệ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%for s in stats if stats%}
+
+      <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.loaiphong}}</td>
+        <td>{{s.doanhthu}}</td>
+        <td>{{s.soluotthue}}</td>
+        <td>{{s.soluotthue/count}}</td>
+      </tr>
+      {%endfor%}
+
+        <tr >
+        <td colspan="5" >Tổng doanh thu: {{tongdoanhthu}} VNĐ</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+    <div class="container mt-5 col-md-5 col-xs-7">
+
+      <canvas id="myRoomCategoriesChart"></canvas>
+    </div>
+</div>
+<div class="row">
+  <div class="container mt-5 col-md-5 col-xs-12">
+  <table class="table table-bordered table-sm">
+    <thead class="table-dark">
+      <tr>
+        <th colspan="5" class="text-center">Báo cáo mật độ sử dụng</th>
+      </tr>
+    </thead>
+     <thead class="table-dark">
+
+    </thead>
+     <thead class="table-dark">
+      <tr class="text-center" >
+         <th>STT</th>
+        <th>Tên Phòng</th>
+        <th>Số Ngày Thuê</th>
+        <th>Tỉ Lệ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {%for s2 in stats2 if stats2%}
+
+      <tr>
+        <td>{{s2.id}}</td>
+        <td>{{s2.tenphong}}</td>
+         {%if s2.songay !=None%}
+        <td>{{s2.songay}}</td>
+                <td>{{s2.songay/daycount}}</td>
+          {%else%}
+                <td>0</td>
+                <td>0</td>
+          {%endif%}
+      </tr>
+      {%endfor%}
+
+
+    </tbody>
+
+  </table>
+</div>
+    <div class="container mt-5 col-md-5 col-xs-7">
+
+      <canvas id="myRoomUsageCount"></canvas>
+
+    </div>
+</div>
+</div>
+
 {% else%}
 <form method="post" action="{{url_for('admin_login')}}">
   <div class="mb-3 mt-3">
@@ -17,4 +112,69 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {%endif%}
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   <script>
+    let labels =[], info = []
+    {%for s in stats%}
+      labels.push('{{s[1]}}')
+      info.push({{s[2]}})
+    {%endfor%}
+
+   window.onload = function(){
+            const ctx = document.getElementById('myRoomCategoriesChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Thống kê doanh thu theo loại phòng',
+        data: info,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+   }</script>
+
+   <script>
+<!--    let label2 =[], info2 = []-->
+<!--    {%for s in stats2%}-->
+<!--        {%if s[2]!=None%}-->
+<!--      label2.push('{{s[1]}}')-->
+<!--      info2.push({{s[2]}})-->
+<!--      {%endif%}-->
+<!--    {%endfor%}-->
+
+<!--   window.onload = function(){-->
+<!--            const ctx = document.getElementById('myRoomUsageCount').getContext('2d');-->
+
+<!--  new Chart(ctx, {-->
+<!--    type: 'pie',-->
+<!--    data: {-->
+<!--      labels: label2,-->
+<!--      datasets: [{-->
+<!--        label: 'Thống kê doanh thu theo loại phòng',-->
+<!--        data: info2,-->
+<!--        borderWidth: 1-->
+<!--      }]-->
+<!--    },-->
+<!--    options: {-->
+<!--      scales: {-->
+<!--        y: {-->
+<!--          beginAtZero: true-->
+<!--        }-->
+<!--      }-->
+<!--    }-->
+<!--  });-->
+   }</script>
+</script>
 {%endblock %}

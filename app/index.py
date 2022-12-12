@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, session, jsonify, url_for
 from app import app, dao, utils
 from flask_login import login_user, logout_user, login_required
-
+from datetime import datetime
 import cloudinary.uploader
 from app.admin import *
 from app import login
@@ -69,9 +69,11 @@ def register():
 @app.route('/booking', methods=['get'])
 def room():
     kw = request.args.get('loaiphong')
+    ngaynhan =request.args.get('ngaynhan')
+    ngaytra = request.args.get('ngaytra')
     roomcategories = dao.load_roomcategories(loaiphong=kw)
     rooms = dao.load_room()
-    return render_template('booking.html', roomcategories=roomcategories,rooms=rooms)
+    return render_template('booking.html', roomcategories=roomcategories,rooms=rooms,ngaynhan=ngaynhan,ngaytra=ngaytra)
 
 
 @app.route('/order', methods=['get', 'post'])
@@ -129,12 +131,20 @@ def add_to_cart():
             "price": price,
             "quantity": 1,
             "sokhachtoida": sokhachtoida,
-            "loaiphong": loaiphong
+            "loaiphong": loaiphong,
         }
 
     session[key] = cart
 
     return jsonify(utils.cart_stats(cart))
 
+@app.route('/complete',methods=['post'])
+def pay():
+        request.form.getlist('hoten[]'),
+        request.form.getlist('diachi[]'),
+        request.form.getlist('cmnd[]'),
+        request.form.getlist('quocgia[]')
+        dao.dat_phong(session['cart'])
+        return render_template('complete.html',dsdp=dao.get_phieu_dat_phong(current_user.id),dskh=dao.get_danh_sach_dat_phong(current_user.id))
 if __name__ == '__main__':
     app.run(debug=True)

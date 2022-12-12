@@ -41,7 +41,6 @@ class NguoiDung(BaseModel, UserMixin):
 class LoaiPhong(BaseModel):
     loaiphong = Column(String(30), unique=True)
     mota = Column(String(100), nullable=False)
-    soluong = Column(Integer, nullable=False)
     hinhanh = Column(String(100))
     dongia = Column(Float, nullable=False)
     sokhachtoida = Column(Integer, default=3, nullable=False)
@@ -58,8 +57,7 @@ class Phong(BaseModel):
     ChiTietHoaDon = relationship('ChiTietHoaDon', backref='Phong', lazy=True)
     PhieuDatPhong = relationship('PhieuDatPhong', secondary='Phong_PhieuDatPhong', lazy='subquery',
                                  backref=backref('Phong', lazy=True))
-    PhieuThuePhong = relationship('PhieuThuePhong', secondary='Phong_PhieuThuePhong', lazy='subquery',
-                                  backref=backref('Phong', lazy=True))
+    PhieuThuePhong_Phong = relationship('PhieuThuePhong_Phong',backref='Phong',lazy=True)
 
     def __str__(self):
         return self.tenphong
@@ -77,14 +75,11 @@ Phong_PhieuDatPhong = db.Table('Phong_PhieuDatPhong',
                                Column('Phong_id', Integer, ForeignKey('phong.id'), primary_key=True),
                                Column('PhieuDatPhong_id', Integer, ForeignKey('phieu_dat_phong.id'), primary_key=True))
 
-Phong_PhieuThuePhong = db.Table('Phong_PhieuThuePhong',
-                                Column('Phong_id', Integer, ForeignKey('phong.id'), primary_key=True),
-                                Column('PhieuThuePhong_id', Integer, ForeignKey('phieu_thue_phong.id'),
-                                       primary_key=True))
+
 9
 
 class PhieuDatPhong(BaseModel):
-    ngaydat = Column(DateTime)
+    ngaydat = Column(DateTime, default=datetime.now())
     ngaynhan = Column(DateTime)
     ngaytra = Column(DateTime)
     nguoidat = Column(Integer, ForeignKey(NguoiDung.id), nullable=False)
@@ -99,10 +94,16 @@ class PhieuThuePhong(BaseModel):
     ngaydat = Column(DateTime)
     ngaynhan = Column(DateTime)
     ngaytra = Column(DateTime)
-    nguoithue_id = Column(Integer, ForeignKey(NguoiDung.id), nullable=False)
+    songay = Column(Integer)
+    nguoithue_id = Column(Integer, ForeignKey(NguoiDung.id))
     nhanvien_id = Column(Integer, ForeignKey(NguoiDung.id), nullable=False)
     DSThuePhong = relationship('DSThuePhong', backref='PhieuThuePhong', lazy=True)
+    PhieuThuePhong_Phong = relationship('PhieuThuePhong_Phong',backref='PhieuThuePhong',lazy=True)
 
+
+class PhieuThuePhong_Phong(BaseModel):
+    PhieuThuePhong_id = Column(Integer,ForeignKey(PhieuThuePhong.id),nullable=False)
+    Phong_id = Column(Integer,ForeignKey(Phong.id),nullable=False)
 
 class DSThuePhong(DanhSachKhachHang):
     PhieuThuePhong_id = Column(Integer, ForeignKey(PhieuThuePhong.id), nullable=False)
@@ -116,7 +117,6 @@ class HoaDonThanhToan(BaseModel):
     thang = Column(Integer)
     ChiTietHoaDon_id = relationship('ChiTietHoaDon', backref='HoaDonThanhToan', lazy=True)
 
-
 class ChiTietHoaDon(BaseModel):
     dongia = Column(Float, nullable=False)
     phong_id = Column(Integer, ForeignKey(Phong.id))
@@ -127,11 +127,11 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-        r2 = LoaiPhong(loaiphong='Phòng đôi', soluong=10, mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
+        r2 = LoaiPhong(loaiphong='Phòng đôi', mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
                        tilephuthu=3 / 10, heso=1.5)
-        r3 = LoaiPhong(loaiphong='Phòng lớn', soluong=10, mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
+        r3 = LoaiPhong(loaiphong='Phòng lớn', mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
                        tilephuthu=3 / 10, heso=1.5)
-        r1 = LoaiPhong(loaiphong='Phòng đơn', soluong=10, mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
+        r1 = LoaiPhong(loaiphong='Phòng đơn', mota='a', hinhanh='a', dongia=100000, sokhachtoida=3,
                        tilephuthu=3 / 10, heso=1.5)
 
         import hashlib
@@ -152,6 +152,9 @@ if __name__ == '__main__':
         p7 = Phong (tenphong ='P07',tinhtrang=1,hinhanh='a',LoaiPhong_id=3)
         p8 = Phong (tenphong ='P08',tinhtrang=1,hinhanh='a',LoaiPhong_id=3)
         p9 = Phong (tenphong ='P09',tinhtrang=1,hinhanh='a',LoaiPhong_id=3)
+
+
+
 
         db.session.add_all([r1,r2,r3,a1,a2,p1,p2,p3,p4,p5,p6,p7,p8,p8])
         db.session.commit()

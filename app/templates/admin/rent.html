@@ -1,0 +1,102 @@
+{% extends 'admin/base.html'%}
+
+{% block body %}
+{% if current_user.is_authenticated%}
+
+
+<h3 class="text-center text-warning" style="margin-top: 6rem">Hello</h3>
+<div class="row" style="margin-top: 3rem">
+    <div class="col">
+        <form method="post">
+            <div class="form-row">
+                <div class="row">
+                    <div class="col">
+                        <label for="start">Ngày Nhận Phòng</label>
+                        <input class="form-control" type="datetime-local" id="start" name="ngaynhan">
+                    </div>
+                    <div class="col">
+                        <label for="end">Ngày Trả Phòng</label>
+                        <input class="form-control" type="datetime-local" id="end" name="ngaytra">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputName">Mã Nhân Viên</label>
+                <input type="text" class="form-control" id="inputName" name="nhanvien" placeholder="Nhập Mã Nhân Viên">
+            </div>
+            <div class="form-group">
+                <label>Các Phòng Cho Thuê</label>
+                <div class='row'>
+                    <div class="col-md-2">
+                        <fieldset disabled>
+                            <input type="text" name="phongid" class="form-control">
+                        </fieldset>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputRoom">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit_button" value="Them">Thêm</button>
+        </form>
+    </div>
+    <div class="col">
+        <form method="post">
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputUsername">Họ Tên Nhân Viên</label>
+                    <input type="text" class="form-control" name="khachhang" id="inputUsername"
+                           placeholder="Nhập Tên Khách Hàng">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label for="inputCMND">CMND/CCCD</label>
+                    <input type="text" class="form-control" name="cmnd" id="inputCMND">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputCountry">Quốc Gia</label>
+                    <select id="inputCountry" name="quocgia" class="form-control">
+                        <option value="TrongNuoc" selected>Trong Nước</option>
+                        <option value="NgoaiNuoc">Ngoài Nước</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Địa Chỉ</label>
+                <input type="text" class="form-control" name="diachi" id="inputAddress" placeholder="Nhập Địa Chỉ">
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit_button" value="ThemKH">Thêm Khách Hàng</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="row justify-content-center" style="margin: 3rem 0">
+    <form method="post" class="form-inline">
+        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="customControlInline">
+            <label class="custom-control-label" for="customControlInline">Lập Phiếu Thuê</label>
+        </div>
+
+        <button type="submit" name="submit_button" class="btn btn-primary my-1" value="ThemPhong">Submit</button>
+    </form>
+</div>
+
+
+{% else%}
+<form method="post" action="{{url_for('admin_login')}}">
+    <div class="mb-3 mt-3">
+        <label for="username" class="form-label">Ten dang nhap:</label>
+        <input type="text" class="form-control" id="username" placeholder="Nhap ten dang nhap" name="username">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Mat khau:</label>
+        <input type="password" class="form-control" id="password" placeholder="nhap password" name="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endif%}
+
+{%endblock%}

@@ -1,3 +1,6 @@
+from datetime import timedelta, date
+from datetime import  datetime
+
 def cart_stats(cart):
     total_amount, total_quantity = 0, 0
 
@@ -10,3 +13,5 @@ def cart_stats(cart):
         'total_amount': total_amount,
         'total_quantity': total_quantity
     }
+
+
